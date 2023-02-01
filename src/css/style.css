@@ -6,30 +6,7 @@ body {
     background-color: #fafafa;
     color: #212121;
     line-height: 1.5;
+    text-align: center;
     
-}
-
-input {
-    font: inherit;
-    padding: 8px;
-    max-width: 320px;
-    margin-bottom: 16px;
-    border-radius: 15px;
-    border: 3px solid aquamarine;
-}
-
-input:hover{
-    border: 3px solid rgb(27, 217, 182);
-}
-
-button {
-    font: inherit;
-        padding: 8px;
-        max-width: 320px;
-        margin-bottom: 16px;
-        border-radius: 15px;
-        background-color: aquamarine;
-        cursor: pointer;
-        border: transparent;
 }
 
