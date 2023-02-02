@@ -64,7 +64,7 @@ function onSearchImg(e) {
    } 
   getImg(querySearch, page)
     .then(res => {
-    totalPage = res.data.totalHits ;
+   let totalPage = res.data.totalHits ;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
     clearMarkup();
