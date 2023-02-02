@@ -44,6 +44,8 @@ async function onSearchImg(e) {
    catch (error) {
    
   }
+
+  
   finally { () => form.reset() }
      clearMarkup();
     
