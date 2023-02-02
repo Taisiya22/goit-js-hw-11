@@ -19,40 +19,7 @@ let querySearch = '';
 const per_page = 40;
 
 
-async function onSearchImg(e) {
-   
-  e.preventDefault();
-  let querySearch = form.elements.searchQuery.value.trim();
-   page = 1;
-   if (!querySearch) {
-     clearMarkup();
-     addHidden();
-    return;
-  } 
-  try {
-    const res = await getImg(querySearch, page);
-    totalPage = res.data.totalHits;
-    if (totalPage === 0) {
-      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-      clearMarkup();
-      return;
-    }
-    Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
-    renderMarkup(res.data.hits);
-    onSimpleLightBox();
-    addVisible();}
-   catch (error) {
-   
-  }
-
-  
-  finally { () => form.reset() }
-     clearMarkup();
-    
-}
-
-
-// function onSearchImg(e) {
+// async function onSearchImg(e) {
    
 //   e.preventDefault();
 //   let querySearch = form.elements.searchQuery.value.trim();
@@ -61,25 +28,59 @@ async function onSearchImg(e) {
 //      clearMarkup();
 //      addHidden();
 //     return;
-//    } 
-//   getImg(querySearch, page)
-//     .then(res => {
-//     totalPage = res.data.totalHits ;
+//   } 
+//   try {
+//     const res = await getImg(querySearch, page);
+//     totalPage = res.data.totalHits;
 //     if (totalPage === 0) {
 //       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-//     clearMarkup();
+//       clearMarkup();
 //       return;
 //     }
-//     renderMarkup(res.data.hits)
-//       Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
-//       onSimpleLightBox();
-//       addVisible();
-//   })
-//      .catch(console.log)
-//      .finally(() => form.reset)
+//     Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
+//     renderMarkup(res.data.hits);
+//     onSimpleLightBox();
+//     addVisible();}
+//    catch (error) {
+   
+//   }
+
+
+//   finally { () => form.reset() }
 //      clearMarkup();
     
 // }
+
+
+function onSearchImg(e) {
+   
+  e.preventDefault();
+  let querySearch = form.elements.searchQuery.value.trim();
+   page = 1;
+   if (!querySearch) {
+     clearMarkup();
+     addHidden();
+    return;
+   } 
+  getImg(querySearch, page)
+    .then(res => {
+    totalPage = res.data.totalHits ;
+    if (totalPage === 0) {
+      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+    clearMarkup();
+      return;
+    }
+    renderMarkup(res.data.hits)
+      Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
+      onSimpleLightBox();
+      addVisible();
+  })
+     .catch(console.log)
+     .finally(() => form.reset)
+     clearMarkup();
+  
+    
+}
  
 
 function onLoadMoreBtn(e) { 
