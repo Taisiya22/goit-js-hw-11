@@ -64,6 +64,7 @@ function onSearchImg(e) {
    } 
   getImg(querySearch, page)
     .then(res => {
+      console.log(res)
    let totalPage = res.data.totalHits ;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
@@ -90,7 +91,7 @@ function onLoadMoreBtn(e) {
   
   getImg(querySearch, page)
     .then(res => {
-      renderMarkup(res.data.hits);
+      renderMarkup(res.hits);
       console.log(res);
       onSimpleLightBox();
       addVisible();
