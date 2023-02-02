@@ -1,7 +1,7 @@
 
 const gallery = document.querySelector('.gallery');
 export function renderMarkup(pictures) {
-  markup = pictures.reduce((acc, { webformatURL, tags, largeImageURL, likes, views, comments, downloads }) => {
+  const markup = pictures.reduce((acc, { webformatURL, tags, largeImageURL, likes, views, comments, downloads }) => {
     return acc + `
       <a class="gallery__link" href="${largeImageURL}">
    <div class="gallery-item">

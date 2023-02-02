@@ -91,7 +91,7 @@ function onLoadMoreBtn(e) {
   
   getImg(querySearch, page)
     .then(res => {
-      renderMarkup(res.hits);
+      renderMarkup(res.data.hits);
       console.log(res);
       onSimpleLightBox();
       addVisible();
