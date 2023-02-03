@@ -15,11 +15,41 @@ loadBtn.addEventListener('click', onLoadMoreBtn);
 input.addEventListener('input', handlerInput);
 
 let page = 1;
-let querySearch = '';
 const per_page = 40;
 
 
-// async function onSearchImg(e) {
+async function onSearchImg(e) {
+   
+  e.preventDefault();
+  let querySearch = form.elements.searchQuery.value.trim();
+  page = 1;
+  if (!querySearch) {
+    clearMarkup();
+    addHidden();
+    return;
+  }
+  
+  try {
+    const res = await getImg(querySearch, page);
+    console.log(res);
+    let totalPage = res.data.totalHits;
+    if (totalPage === 0) {
+      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
+      clearMarkup();
+      return;
+    }
+    renderMarkup(res.data.hits);
+     Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
+    onSimpleLightBox();
+    addVisible();
+  
+  } catch (error) {
+    console.log(error);
+  }
+
+}
+
+// function onSearchImg(e) {
    
 //   e.preventDefault();
 //   let querySearch = form.elements.searchQuery.value.trim();
@@ -28,83 +58,74 @@ const per_page = 40;
 //      clearMarkup();
 //      addHidden();
 //     return;
-//   } 
-//   try {
-//     const res = await getImg(querySearch, page);
-//     totalPage = res.data.totalHits;
+//    } 
+//   getImg(querySearch, page)
+//     .then(res => {
+//       console.log(res);
+//    let totalPage = res.data.totalHits ;
 //     if (totalPage === 0) {
 //       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-//       clearMarkup();
+//     clearMarkup();
 //       return;
 //     }
-//     Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
-//     renderMarkup(res.data.hits);
-//     onSimpleLightBox();
-//     addVisible();}
-//    catch (error) {
-   
-//   }
-
-
-//   finally { () => form.reset() }
+//     renderMarkup(res.data.hits)
+//       Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
+//       onSimpleLightBox();
+//       addVisible();
+//   })
+//      .catch(console.log)
+//      .finally(() => form.reset())
 //      clearMarkup();
+  
     
 // }
-
-
-function onSearchImg(e) {
-   
-  e.preventDefault();
-  let querySearch = form.elements.searchQuery.value.trim();
-   page = 1;
-   if (!querySearch) {
-     clearMarkup();
-     addHidden();
-    return;
-   } 
-  getImg(querySearch, page)
-    .then(res => {
-      console.log(res)
-   let totalPage = res.data.totalHits ;
-    if (totalPage === 0) {
-      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
-    clearMarkup();
-      return;
-    }
-    renderMarkup(res.data.hits)
-      Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
-      onSimpleLightBox();
-      addVisible();
-  })
-     .catch(console.log)
-     .finally(() => form.reset)
-     clearMarkup();
-  
-    
-}
  
 
-function onLoadMoreBtn(e) { 
-
+async function onLoadMoreBtn(e) {
   page += 1;
-  let querySearch = form.elements.searchQuery.value.trim();
+   let querySearch = form.elements.searchQuery.value.trim();
+  try {
+   
+    const res = await getImg(querySearch, page);
+    renderMarkup(res.data.hits);
+    // console.log(res);
+    onSimpleLightBox();
+    addVisible();
+    const count = res.data.totalHits / per_page;
+    if (page > count) {
+      Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.');
+      addHidden();
+      form.reset();
+    }
+
+  }
+  catch (error) {
+    console.log(error)
+  }
   
-  getImg(querySearch, page)
-    .then(res => {
-      renderMarkup(res.data.hits);
-      console.log(res);
-      onSimpleLightBox();
-      addVisible();
-      const count = res.data.totalHits / per_page;
-      if (page > count) {
-        Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.');
-        addHidden();
-      }
-
-    })
-
 }
 
+
+// function onLoadMoreBtn(e) { 
+
+//   page += 1;
+//   let querySearch = form.elements.searchQuery.value.trim();
+  
+//   getImg(querySearch, page)
+//     .then(res => {
+//       renderMarkup(res.data.hits);
+//       // console.log(res);
+//       onSimpleLightBox();
+//       addVisible();
+//       const count = res.data.totalHits / per_page;
+//       if (page > count) {
+//         Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.');
+//         addHidden();
+//       }
+
+//     })
+
+// }
 function clearMarkup() {
   gallery.innerHTML = "";
 }
@@ -128,23 +149,8 @@ function handlerInput(e) {
   }
 }
 function onSimpleLightBox() {
- var lightbox = new SimpleLightbox('.gallery a', {
+  new SimpleLightbox('.gallery a', {
         captionDelay: 250,
         captionsData: 'alt',
       }).refresh();
  }
-
-// async function onSearchCountry(e) { 
-//   let inputValue = e.target.value.trim();
-//   if (!inputValue) {
-//     Notiflix.Notify.warning('Entry name country!');
-//     clearMarkup();
-//     return;
-//    } 
-  
-//   try {
-//     const countries = await fetchCountries(inputValue);
-//     renderCountryList(countries);
-//   } catch (error) {
-//     onError();
-//   }
