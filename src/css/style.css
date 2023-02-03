@@ -7,9 +7,10 @@
                 Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            background-color: #fafafa;
+            /* background-color: #fafafa; */
             color: #212121;
             line-height: 1.5;
+            background-color: #dbcfe4;
             
         }
 
@@ -22,6 +23,7 @@
     align-items: center;
     justify-content: center;
     background-color: #450a6c;
+    
     /* padding: 15px; */
 
 }
