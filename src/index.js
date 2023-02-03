@@ -12,9 +12,12 @@ const input = document.getElementById('input');
 
 form.addEventListener('submit', onSearchImg);
 loadBtn.addEventListener('click', onLoadMoreBtn);
-input.addEventListener('input', handlerInput);
+input.addEventListener('change', handlerInput);
+
+
 
 let page = 1;
+searchQuery = '';
 const per_page = 40;
 
 
@@ -140,13 +143,19 @@ function addVisible() {
 }
 
 function handlerInput(e) { 
+  
   let querySearch = form.elements.searchQuery.value.trim();
+  console.log(querySearch)
   if (!querySearch) { 
     Notiflix.Notify.failure('Please, fill search field!');
     clearMarkup();
     addHidden()
       return;
   }
+  if (querySearch === querySearch) {
+    clearMarkup();
+   }
+ 
 }
 function onSimpleLightBox() {
   new SimpleLightbox('.gallery a', {
