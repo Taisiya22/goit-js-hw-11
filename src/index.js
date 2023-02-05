@@ -123,7 +123,7 @@ window.addEventListener('scroll', async() => {
    let querySearch = form.elements.searchQuery.value.trim();
   const docHeight = document.documentElement.getBoundingClientRect();
   const viewHeight = document.documentElement.clientHeight;
-  if (docHeight.bottom < document.documentElement.clientHeight + 150) {
+  if (docHeight.bottom < viewHeight + 150) {
     page += 1;
     
     const res = await getImg(querySearch, page);

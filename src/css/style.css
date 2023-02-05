@@ -62,15 +62,22 @@ a {
     flex-direction: column;
 } 
 
+.item {
+    width: 200px;
+    height: 165px;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
  img {
     display: block;
     width: 100%;
-    height: 165px;
-    transition: transform 400ms ease-out;
-    border-radius: 15px;
+    height: 100%;
+    transition: transform 600ms ease-out;
+    
 }
   img:hover {
-transform: scale(1.15);
+transform: scale(1.30);
 }
 
 .visible {
