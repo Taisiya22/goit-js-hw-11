@@ -31,7 +31,6 @@ margin: 0;
 }
 
 
-
 .gallery {
     padding-top: 50px;
     display: flex;
@@ -44,7 +43,7 @@ margin: 0;
 
 
 a {
-    border: 2px solid rebeccapurple;
+    
     text-decoration: none;
 }
 
@@ -61,11 +60,17 @@ a {
     text-align: center;
     display: flex;
     flex-direction: column;
-}
-.img {
+} 
+
+ img {
     display: block;
     width: 100%;
     height: 165px;
+    transition: transform 400ms ease-out;
+    border-radius: 15px;
+}
+  img:hover {
+transform: scale(1.15);
 }
 
 .visible {
@@ -81,5 +86,3 @@ a {
     color: white;
 } 
  
-
-  
