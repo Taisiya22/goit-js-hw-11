@@ -19,7 +19,7 @@ form.addEventListener('submit', onSearchImg);
 let page = 1;
 querySearch = '';
 const per_page = 40;
-let totalPage = 0;
+
 
 async function onSearchImg(e) {
    
@@ -38,7 +38,7 @@ async function onSearchImg(e) {
   try {
     const res = await getImg(querySearch, page);
     console.log(res);
-     totalPage = res.data.totalHits;
+   let totalPage = res.data.totalHits;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
       clearMarkup();
