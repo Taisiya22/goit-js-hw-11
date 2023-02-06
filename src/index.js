@@ -17,7 +17,7 @@ form.addEventListener('submit', onSearchImg);
 
 
 let page = 1;
-querySearch = '';
+// querySearch = '';
 const per_page = 40;
 
 
