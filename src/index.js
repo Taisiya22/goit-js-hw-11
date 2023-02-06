@@ -17,9 +17,9 @@ form.addEventListener('submit', onSearchImg);
 
 
 let page = 1;
-searchQuery = '';
+querySearch = '';
 const per_page = 40;
-
+let totalPage = 0;
 
 async function onSearchImg(e) {
    
@@ -38,7 +38,7 @@ async function onSearchImg(e) {
   try {
     const res = await getImg(querySearch, page);
     console.log(res);
-    let totalPage = res.data.totalHits;
+     totalPage = res.data.totalHits;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
       clearMarkup();
@@ -119,16 +119,29 @@ window.scrollBy({
 
 // безкінечний скрол
 
-window.addEventListener('scroll', async() => { 
-   let querySearch = form.elements.searchQuery.value.trim();
+window.addEventListener('scroll', onInfititeScroll)
+
+async function onInfititeScroll ()
+{ 
   const docHeight = document.documentElement.getBoundingClientRect();
   const viewHeight = document.documentElement.clientHeight;
   if (docHeight.bottom < viewHeight + 150) {
     page += 1;
-    
+    let querySearch = form.elements.searchQuery.value.trim();
     const res = await getImg(querySearch, page);
     renderMarkup(res.data.hits);
+   
+  } 
+//   const res = await getImg(querySearch, page);
+//  const count = res.data.totalHits / per_page;
+//     if (page > count) {
+//       Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.');
+//       window.removeEventListener('scroll', onInfititeScroll)
+//       form.reset();
+//       return;
+//     }
+    
 
-  }
+  
 
-})
+}
