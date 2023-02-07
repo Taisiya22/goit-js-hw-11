@@ -16,8 +16,8 @@ loadBtn.addEventListener('click', onLoadMoreBtn);
 
 
 
-// let page = 1;
-querySearch = '';
+let page = 1;
+let querySearch = '';
 const per_page = 40;
 
 
