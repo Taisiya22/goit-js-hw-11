@@ -24,7 +24,7 @@ const per_page = 40;
 async function onSearchImg(e) {
    
   e.preventDefault();
-  let querySearch = form.elements.searchQuery.value.trim();
+   querySearch = form.elements.searchQuery.value.trim();
   page = 1;
   clearMarkup();
  
