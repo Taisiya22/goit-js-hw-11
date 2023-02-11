@@ -4,6 +4,7 @@ import SimpleLightbox from "simplelightbox";
 import "simplelightbox/dist/simple-lightbox.min.css";
 import { getImg } from "./api";
 import { renderMarkup } from "./renderMarkup";
+import throttle from "lodash.throttle";
 
 const form = document.getElementById('search-form');
 const gallery = document.querySelector('.gallery');
@@ -24,7 +25,7 @@ const per_page = 40;
 async function onSearchImg(e) {
    
   e.preventDefault();
-   querySearch = form.elements.searchQuery.value.trim();
+  querySearch = form.elements.searchQuery.value.trim();
   page = 1;
   clearMarkup();
  
@@ -107,17 +108,25 @@ function onSimpleLightBox() {
 
 // безкінечний скрол
 
-// window.addEventListener('scroll', onInfititeScroll)
+window.addEventListener('scroll', throttle(onInfititeScroll, 500))
 
-// async function onInfititeScroll ()
-// { 
-//   const docHeight = document.documentElement.getBoundingClientRect();
-//   const viewHeight = document.documentElement.clientHeight;
-//   if (docHeight.bottom < viewHeight + 150) {
-//     page += 1;
-//     let querySearch = form.elements.searchQuery.value.trim();
-//     const res = await getImg(querySearch);
-//     renderMarkup(res.data.hits);
-//   }
+async function onInfititeScroll ()
+{ 
+  const docHeight = document.documentElement.getBoundingClientRect();
+  const viewHeight = document.documentElement.clientHeight;
+  if (docHeight.bottom < viewHeight + 150) {
+    page += 1;
+    let querySearch = form.elements.searchQuery.value.trim();
+    const res = await getImg(querySearch,page);
+    renderMarkup(res.data.hits);
+    const count = res.data.totalHits - per_page * page;
+    if (count < 0) {
+    Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
+    window.removeEventListener('scroll', throttle(onInfititeScroll, 500))
+      
+     return;
 
-// }
+}
+  }
+
+  }
