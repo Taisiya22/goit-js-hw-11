@@ -108,25 +108,25 @@ function onSimpleLightBox() {
 
 // безкінечний скрол
 
-window.addEventListener('scroll', throttle(onInfititeScroll, 500))
+// window.addEventListener('scroll', throttle(onInfititeScroll, 500))
 
-async function onInfititeScroll ()
-{ 
-  const docHeight = document.documentElement.getBoundingClientRect();
-  const viewHeight = document.documentElement.clientHeight;
-  if (docHeight.bottom < viewHeight + 150) {
-    page += 1;
-    let querySearch = form.elements.searchQuery.value.trim();
-    const res = await getImg(querySearch,page);
-    renderMarkup(res.data.hits);
-    const count = res.data.totalHits - per_page * page;
-    if (count < 0) {
-    Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
-    window.removeEventListener('scroll', throttle(onInfititeScroll, 500))
+// async function onInfititeScroll ()
+// { 
+//   const docHeight = document.documentElement.getBoundingClientRect();
+//   const viewHeight = document.documentElement.clientHeight;
+//   if (docHeight.bottom < viewHeight + 150) {
+//     page += 1;
+//     let querySearch = form.elements.searchQuery.value.trim();
+//     const res = await getImg(querySearch,page);
+//     renderMarkup(res.data.hits);
+//     const count = res.data.totalHits - per_page * page;
+//     if (count < 0) {
+//     Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
+//     window.removeEventListener('scroll', throttle(onInfititeScroll, 500))
       
-     return;
+//      return;
 
-}
-  }
+// }
+//   }
 
-  }
+//   }
