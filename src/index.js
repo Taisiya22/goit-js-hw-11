@@ -146,10 +146,12 @@ export let callback = (entries, observer) => {
        let querySearch = form.elements.searchQuery.value.trim();
       getImg(querySearch, page).then((res) => {
         renderMarkup(res.data.hits);
+        onSimpleLightBox();
        const count = res.data.totalHits - per_page * page;
     if (count < 0) {
     Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
           observer.unobserve(target);
+          addHidden();
           return;
         }
       });
