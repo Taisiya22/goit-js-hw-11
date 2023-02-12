@@ -1,5 +1,7 @@
 
 const gallery = document.querySelector('.gallery');
+
+
 export function renderMarkup(pictures) {
   const markup = pictures.reduce((acc, { webformatURL, tags, largeImageURL, likes, views, comments, downloads }) => {
     return acc + `
@@ -25,5 +27,6 @@ export function renderMarkup(pictures) {
    </div>
 </div>`}, '')
 
-    return gallery.insertAdjacentHTML('beforeend', markup)
+    return gallery.insertAdjacentHTML('beforeend', markup);
+    
 }

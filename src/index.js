@@ -38,7 +38,7 @@ async function onSearchImg(e) {
   
   try {
     const res = await getImg(querySearch, page);
-    console.log(res);
+    // console.log(res);
    let totalPage = res.data.totalHits;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
@@ -47,6 +47,7 @@ async function onSearchImg(e) {
     }
      
     renderMarkup(res.data.hits);
+    observer.observe(target);
     Notiflix.Notify.success(`Hooray! We found ${totalPage} images.`);
     onSimpleLightBox();
     addVisible();
@@ -63,7 +64,6 @@ async function onLoadMoreBtn(e) {
   page += 1;
    let querySearch = form.elements.searchQuery.value.trim();
   try {
-   
     const res = await getImg(querySearch, page);
     renderMarkup(res.data.hits);
     // console.log(res);
@@ -111,7 +111,7 @@ function onSimpleLightBox() {
 // window.addEventListener('scroll', throttle(onInfititeScroll, 500))
 
 // async function onInfititeScroll ()
-// { 
+// {
 //   const docHeight = document.documentElement.getBoundingClientRect();
 //   const viewHeight = document.documentElement.clientHeight;
 //   if (docHeight.bottom < viewHeight + 150) {
@@ -130,3 +130,31 @@ function onSimpleLightBox() {
 //   }
 
 //   }
+
+// безкінечний скрол практика Рисіч
+
+let options = {
+  root: null,
+  rootMargin: "300px",
+  threshold: 0,
+};
+export let callback = (entries, observer) => {
+  entries.forEach((entry) => {
+    console.log(entry)
+    if (entry.isIntersecting) {
+      page += 1;
+       let querySearch = form.elements.searchQuery.value.trim();
+      getImg(querySearch, page).then((res) => {
+        renderMarkup(res.data.hits);
+       const count = res.data.totalHits - per_page * page;
+    if (count < 0) {
+    Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
+          observer.unobserve(target);
+          return;
+        }
+      });
+    }
+  });
+};
+let observer = new IntersectionObserver(callback, options);
+let target = document.querySelector(".js-guard");
