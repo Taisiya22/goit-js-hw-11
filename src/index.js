@@ -138,16 +138,16 @@ let options = {
   rootMargin: "300px",
   threshold: 0,
 };
-export let callback = (entries, observer) => {
+ let callback = (entries, observer) => {
   entries.forEach((entry) => {
     console.log(entry)
     if (entry.isIntersecting) {
       page += 1;
-       let querySearch = form.elements.searchQuery.value.trim();
+       querySearch = form.elements.searchQuery.value.trim();
       getImg(querySearch, page).then((res) => {
         renderMarkup(res.data.hits);
         onSimpleLightBox();
-       const count = res.data.totalHits - per_page * page;
+       let count = res.data.totalHits - per_page * page;
     if (count < 0) {
     Notiflix.Notify.info('Were sorry, but you ve reached the end of search results.')
           observer.unobserve(target);
