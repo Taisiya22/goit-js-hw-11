@@ -106,7 +106,7 @@ function onSimpleLightBox() {
  
 
 
-// безкінечний скрол
+// безкінечний скрол відео youtube
 
 // window.addEventListener('scroll', throttle(onInfititeScroll, 500))
 
