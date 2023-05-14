@@ -38,7 +38,7 @@ async function onSearchImg(e) {
   
   try {
     const res = await getImg(querySearch, page);
-    // console.log(res);
+    console.log(res);
    let totalPage = res.data.totalHits;
     if (totalPage === 0) {
       Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.');
